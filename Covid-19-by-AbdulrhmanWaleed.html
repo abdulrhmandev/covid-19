@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="iq">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Covid-19 Status</title>
+</head>
+
+<body dir="rtl">
+    <nav class="navbar navbar-light bg-primary mb-3">
+        <a class="navbar-brand text-white">
+            الصفحة الرئيسية
+        </a>
+    </nav>
+    <div class="text-center mb-5">
+        <h3> الاحصائيات المتوقعة لفايروس COVID-19 </h3>
+    </div>
+    <div class="container-fluid">
+        <button class="btn btn-info btn-block" onclick="GetData()">تحميل الاحصائيات</button><br>
+        <div class="card-header bg-primary text-white text-right">
+            <h5 class="card-title">التفاصيل</h5>
+        </div>
+    <div class="card">
+        <div class="card-body">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr class="text-center">
+                <th scope="col">التاريخ</th>
+                <th scope="col">الاصابات المؤكدة</th>
+                <th scope="col">الوفيات</th>
+                <th scope="col">المتعافون</th>
+              </tr>
+            </thead>
+            <tbody  id="abd">
+             
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="./jquery-1.11.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+
+    <script>
+
+
+        
+        function GetData(){
+            console.log("hello abd");
+            var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://pomber.github.io/covid19/timeseries.json",
+                    "method": "GET",
+                    }
+
+                    $.ajax(settings).done(function (res) {
+                    // console.log(res.Iraq);
+
+                    var a = new Array(), j = -1;
+                    for (var i = 0; i < res.Iraq.length; i++) {
+                        console.log(res.Iraq[i]);
+                        
+                a[++j] = `<tr style="text-align:center">
+                          <td>` + res.Iraq[i].date + `</td>
+                          <td>` + res.Iraq[i].confirmed + `</td>
+                          <td>` + res.Iraq[i].deaths + `</td>
+                          <td>` + res.Iraq[i].recovered + `</td>
+                          </tr>`;
+            }
+            $('#abd').append(a);
+                    })
+        }
+        
+    </script>
+</body>
+
+</html>
